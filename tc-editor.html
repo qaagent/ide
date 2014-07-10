@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html ng-app="testcase-editor">
+<head>
+    <title>QA Agent</title>
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+
+    <script src="http://code.jquery.com/jquery-2.0.3.js"></script>
+    <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+
+
+    <script src="ide_modules/bootstrap-3.0.3/js/bootstrap.js"></script>
+    <script src="ide_modules/codemirror-3.20/lib/codemirror.js"></script>
+    <script src="ide_modules/codemirror-3.20/mode/javascript/javascript.js"></script>
+    <script src="ide_modules/angular-xeditable-0.1.8/js/xeditable.js"></script>
+    <script src="ide_modules/jquery.validate.js"></script>
+
+    <script type="text/javascript" src="js/views/loading.js"></script>
+    <script type="text/javascript" src="js/models/testcase.js"></script>
+    <script type="text/javascript" src="js/views/top_menu.js"></script>
+    <script type="text/javascript" src="js/support/notification.js"></script>
+    <script type="text/javascript" src="js/support/codeeditor.js"></script>
+    <script type="text/javascript" src="js/support/logger.js"></script>
+    <script type="text/javascript" src="js/support/parsehelper.js"></script> 
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/testcaseeditor.js"></script>
+    <script type="text/javascript" src="js/injector.js"></script>
+    
+
+    <link href="ide_modules/angular-xeditable-0.1.8/css/xeditable.css" rel="stylesheet">
+    <link href="ide_modules/bootstrap-3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="ide_modules/codemirror-3.20/lib/codemirror.css" rel="stylesheet" >
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/testcaseeditor.css" rel="stylesheet">
+    <link href="css/notifications.css" rel="stylesheet">
+
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/mogbehdhjcnopiepkggdpabfogfdnopj">
+
+</head>
+<body>
+
+<div id="loading-screen"></div>
+
+<div  ng-controller="TestCaseEditor" class="base-container">
+
+    <div id="top_menu"></div>
+
+    <div id="qaagent-ide" style="display: none;"></div>
+
+    <!-- Settings window -->
+    <div class="modal fade" id="settingswindow" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-cog"></i>&nbsp;Settings</h4>
+          </div>
+          <div class="modal-body">
+            <input type="checkbox" id="closeOnComplete" name="closeOnComplete" value="CloseOnComplete" ng-model="settings.closeOnComplete">&nbsp;Close browser tab when the test complete<br><br>
+            <input type="checkbox" id="anotateElements" name="anotateElements" value="anotateElements" ng-model="settings.annotate">&nbsp;Anotate elements<br>
+            <hr>
+            <input type="text" id="elementSearchTimeOut" name="elementSearchTimeOut" value="elementSearchTimeOut" style="width: 80px;" ng-model="settings.elementSearchTimeOut">(ms)&nbsp; Element search timeout<br><br>
+            <input type="text" id="delayBeforeExecution" name="delayBeforeExecution" value="delayBeforeExecution" style="width: 80px;" ng-model="settings.delayBeforeExecution">(ms)&nbsp; Delay before test case start<br><br>
+            <input type="text" id="delayBeforeCommandExecution" name="delayBeforeCommandExecution" value="delayBeforeCommandExecution" style="width: 80px;" ng-model="settings.delayBeforeCommandExecution">(ms)&nbsp; Delay between each action<br><br>
+          </div>
+          <div class="modal-footer">
+            <a id="save-settings" class="btn btn-success" ng-click="saveSettings()" data-dismiss="modal">Save</a>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- Not installed extension -->
+    <div class="modal fade" id="installextension" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-puzzle-piece fa-3"></i>&nbsp;System Requirement</h4>
+          </div>
+          <div class="modal-body">
+            To run your tests you need a QA Agent extension.
+          </div>
+          <div class="modal-footer">
+            <a onClick="location.reload();" class="btn btn-default" href="#">Refresh</a>
+            <a type="submit" id="install-extension-button" class="btn btn-success" href="https://chrome.google.com/webstore/detail/qa-agent/mogbehdhjcnopiepkggdpabfogfdnopj" target="_blank">Download QA Agent Extension</a>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- Not Supported Browser dialog -->
+    <div class="modal fade" id="notsupportedbrowser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-puzzle-piece fa-3"></i>&nbsp;System Requirement</h4>
+          </div>
+          <div class="modal-body">
+              <span><b>Google Chrome</b> is currently the only supported browser.</span><br /><br />
+              <span> If you continue to use this browser QA Agent will be fully opperational except that you will be not able to run your tests.</span>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" id="not-supported-browser-button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- Create Test case dialog -->
+    <div class="modal fade" id="createtestcase" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <form id="create-testcase-form" ng-submit="createTestcase()">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="btn-success modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Create test case</h4>
+          </div>
+          <div class="modal-body">
+              <label for="createname" style="color: grey;">Name</label>
+              <input id="createname" name="createname" tabindex="0" class="form-control" type="text" ng-model="testcase.name" minlength="2" required /><br />
+              <label for="addurl" style="color: grey;">URL</label>
+              <input id="addurl" name="addurl" tabindex="0" class="form-control" type="text" ng-model="testcase.url" minlength="2" required /><br />
+              <label for="createdescription" style="color: grey;">Description</label>
+              <textarea id="createdescription" class="form-control" ng-model="testcase.description" rows="4" cols="50"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </form>
+    </div><!-- /.modal -->
+
+    <!-- Delete dialog -->
+    <div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="btn-danger modal-header">
+            <button type="button" id="done-btn" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Delete test case</h4>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this test case?<br />You are not able to revert it!
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="delete-test-case-btn" class="btn btn-danger" data-dismiss="modal">Delete</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="base-container">
+        <div class="row show-grid action-area navbar-fixed-top">
+              <a id="run" class="action-button" ng-click="runTestcase()"><i class="fa fa-play-circle"></i>Run</a>
+              <a id="runAll" class="action-button" ng-click="runAllTestcases()"><i class="fa fa-play-circle"></i>Run All</a>
+              <a id="add" class="action-button" data-toggle="modal" data-target="#createtestcase" ng-click="clear()"><i class="fa fa-plus"></i>Add</a>
+              <a id="save" class="action-button" ng-click="saveTestcase()"><i class="fa fa-save"></i>Save</a>
+              <a id="settings" class="action-button" ng-click="openSettings()"><i class="fa fa-cog"></i>Settings</a>
+        </div>
+        <div class="row pane-container">
+            <div class="col-md-9 col-md-push-3 source-pane">
+                <textarea id="source_editor" style="display: none;">{{testcase.source || ""}}</textarea>
+                <div class="console navbar-fixed-bottom">
+                    <div id="console-output-info" class="pane-info"><a><i class="fa fa-ban" style="padding-right: 10px;" ng-click="clearConsole()"></i></a><a class="active">Console</a></div>
+                    <div id="console-output" class="console-output"></div>
+                </div>
+            </div>
+            <div class="col-md-3 col-md-pull-9 explore-pane navbar-fixed-left">
+                <div class="list-group">
+                  <a href="#" class="list-group-item" ng-click="selectedTest(testcase)" ng-repeat="testcase in testcases | orderBy:predicate" title="{{testcase.description}}"><div class="success-{{testcase.status}}"></div><i class="fa fa-code tc-icon"></i>{{testcase.name}}</i><i class="fa fa-pencil-square-o edit" data-toggle="modal" data-target="#createtestcase"></i><i class="fa fa-trash-o delete" ng-click="showDeleteDialog(testcase)"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

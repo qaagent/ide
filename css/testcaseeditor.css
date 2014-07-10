@@ -1,0 +1,188 @@
+﻿html, body
+{
+    background-color: #EBEEF1;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+.base-container
+{
+    margin-top: 89px;
+    min-height: 80%;
+    height: 80%;
+}
+
+.pane-container
+{
+    height: 100%;
+}
+
+.editable-input
+{
+    font-size: 16px;
+    width: 600px;
+    padding-bottom: 0px;
+    padding-top: 0px !important;
+    padding-left: 4px;
+    padding-bottom: 12px;
+}
+
+.tc-description-editor
+{
+    color: #1e1f22 !important;
+    font-size: 16px;
+    border-bottom: none !important;
+    height: 32px !important;
+    padding-left: 5px;
+    cursor:text;
+}
+
+.CodeMirror { 
+    border-left: 1px solid #C8C8C8;
+    border-top: 1px solid #C8C8C8;
+    border-bottom: 1px solid #C8C8C8;
+    height: 100%;
+    width: 100%;
+
+}
+
+.success-true
+{
+    background-color: #5CB85C;
+    height: 100%;
+    width: 10px;
+    display: inline;
+    position: absolute;
+    text-align: center;
+    left: 0px;
+    top: 0px;
+}
+
+.success-false
+{
+    background-color: #D9534F;
+    height: 100%;
+    width: 10px;
+    display: inline;
+    position: absolute;
+    text-align: center;
+    left: 0px;
+    top: 0px;
+}
+
+.explore-pane
+{
+    padding-right: 0px;
+    background-color: #EBEEF1;
+    height: 100%;
+    overflow: auto;
+}
+
+.explore-pane a .tc-icon
+{
+    padding-right: 5px;
+}
+
+.explore-pane a .delete
+{
+    position:absolute;
+    right:20px;
+    padding-top: 4px;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: none;
+}
+
+.explore-pane a .delete:hover
+{
+    color: #428bca;
+}
+
+.explore-pane a .edit
+{
+    position:absolute;
+    right:40px;
+    padding-top: 4px;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: none;
+}
+
+.explore-pane a .edit:hover
+{
+    color: #428bca;
+}
+
+.explore-pane a
+{
+    border-right: none;
+}
+
+.explore-pane a:hover
+{
+    border-right: 2px solid #428bca;
+}
+
+.explore-pane a:hover i
+{
+    display: inline;
+}
+
+.source-pane
+{
+    padding-left: 0px;
+    height: 100%;  
+}
+
+.pane-info
+{
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    width: 100%;
+    border-top: 1px solid #C8C8C8;
+    border-bottom: 1px solid #C8C8C8;
+    background-color: #F7F7F7;
+}
+
+.pane-info a
+{
+    text-decoration: none;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+.pane-info a.active
+{
+    border-bottom: 2px solid #428bca;
+}
+
+.console-output
+{
+    width: 100%;
+    height: 90%;
+    padding-left: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    border-left: 1px solid #C8C8C8;
+    border-bottom: 1px solid #C8C8C8;
+    background-color: #FFFFFF;
+    overflow: auto;
+}
+
+.console
+{
+    width: 100%;
+    height: 30%;
+    padding-bottom: 5px;
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+﻿@font-face { font-family: Ubuntu; src: url('ubuntu-font-family/Ubuntu-R.ttf'); }
+
+body
+{
+    overflow-x: hidden;
+    height: 100%;
+}
+
+* {
+    font-family: Ubuntu, sans-serif;
+}
+
+.testcase
+{
+    width:50%;
+    margin-left: 23%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border: 2px solid #DCDCDC;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    border-radius: 6px 6px 6px 6px;
+}
+
+.testcase input
+{
+    width: 200px;
+    display: inline-block;
+}
+
+.testcase button
+{
+    width: 60px;
+    height: 35px;
+    margin-left: 50px;
+    margin-right: 50px;
+}

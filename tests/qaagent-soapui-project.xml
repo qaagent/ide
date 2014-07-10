@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="qaagent" resourceRoot="" soapui-version="5.0.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:testSuite name="Authorization"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Registered" searchProperties="true" id="291a87e8-a735-4853-a44b-493a083e4ec6"><con:settings/><con:testStep type="httprequest" name="Logininfo"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="Logininfo" postQueryString="false" mediaType="application/json" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://${#Project#host}/logininfo</con:endpoint><con:request>{
+"apikey": "angelApiKey"
+}</con:request><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion" name="Script Assertion"><con:configuration><scriptText>import groovy.json.JsonSlurper   
+
+def response = new JsonSlurper().parseText(messageExchange.responseContent)   
+
+assert response.payload.apikey == "angelApiKey"
+</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="Testsuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Testsuite" searchProperties="true" id="509ad484-2f44-4f8f-a578-306dc2bd41fd"><con:settings/><con:testStep type="httprequest" name="AllTestsuites"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="AllTestsuites" postQueryString="false" mediaType="application/json" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://${#Project#host}/testsuites</con:endpoint><con:request>{
+"apikey": "angelApiKey"
+}</con:request><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion" name="Script Assertion"><con:configuration><scriptText>import groovy.json.JsonSlurper   
+
+def response = new JsonSlurper().parseText(messageExchange.responseContent)   
+
+assert response.payload[0].apikey == "angelApiKey"
+</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="httprequest" name="GetTestsuiteById"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="GetTestsuiteById" postQueryString="false" mediaType="application/json" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://${#Project#host}/testsuites?id=1</con:endpoint><con:request>{
+"apikey": "angelApiKey"
+}</con:request><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion" name="Script Assertion"><con:configuration><scriptText>import groovy.json.JsonSlurper   
+
+def response = new JsonSlurper().parseText(messageExchange.responseContent)   
+
+assert response.payload.apikey == "angelApiKey"
+</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="EntryPoint"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Negative Cases" searchProperties="true" id="94ff0194-f36f-4892-8898-9c9fc0e31bd4"><con:settings/><con:testStep type="httprequest" name="Call Resource Without API Key"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="Call Resource Without API Key" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://${#Project#host}/testsuites</con:endpoint><con:request/><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>401</codes></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion" name="Script Assertion"><con:configuration><scriptText>import groovy.json.JsonSlurper   
+
+def response = new JsonSlurper().parseText(messageExchange.responseContent)   
+
+assert response.status_message == "API Key is not provided"</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="httprequest" name="Call Unavailable Resource"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="Call Unavailable Resource" postQueryString="false" mediaType="application/json" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://${#Project#host}/angel</con:endpoint><con:request>{
+"apikey": "angelApiKey"
+}</con:request><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>404</codes></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion" name="Script Assertion"><con:configuration><scriptText>import groovy.json.JsonSlurper   
+
+def response = new JsonSlurper().parseText(messageExchange.responseContent)   
+
+assert response.status_message == "Resource is not available"</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="httprequest" name="Resource Not Provided"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="Resource Not Provided" postQueryString="false" mediaType="application/json" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://${#Project#host}</con:endpoint><con:request>{
+"apikey": "angelApiKey"
+}</con:request><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion" name="Script Assertion"><con:configuration><scriptText>import groovy.json.JsonSlurper   
+
+def response = new JsonSlurper().parseText(messageExchange.responseContent)   
+
+assert response.status_message == "Resource is not provided"</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite name="Testcase"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Testcase" searchProperties="true" id="d47023b6-92fc-42df-8bbf-4bc78bd9c93f"><con:settings/><con:testStep type="httprequest" name="AllTestcaseNoTestsuiteProvided"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="AllTestcaseNoTestsuiteProvided" postQueryString="false" mediaType="application/json" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://${#Project#host}/testcases</con:endpoint><con:request>{
+"apikey": "angelApiKey"
+}</con:request><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion" name="Script Assertion"><con:configuration><scriptText>import groovy.json.JsonSlurper   
+
+def response = new JsonSlurper().parseText(messageExchange.responseContent)   
+
+assert response.status_message == "Test suite is not provided"
+</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="httprequest" name="AllTestcase"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="AllTestcase" postQueryString="false" mediaType="application/json" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://${#Project#host}/testcases?id=1</con:endpoint><con:request>{
+"apikey": "angelApiKey",
+"testsuite":1
+}</con:request><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion" name="Script Assertion"><con:configuration><scriptText>import groovy.json.JsonSlurper   
+
+def response = new JsonSlurper().parseText(messageExchange.responseContent)   
+
+assert response.payload.apikey == "angelApiKey"
+</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:testStep type="httprequest" name="GetTestcaseById"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" name="GetTestcaseById" postQueryString="false" mediaType="application/json" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://${#Project#host}/testcases</con:endpoint><con:request>{
+"apikey": "angelApiKey",
+"testsuite":1
+}</con:request><con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:assertion type="GroovyScriptAssertion" name="Script Assertion"><con:configuration><scriptText>import groovy.json.JsonSlurper   
+
+def response = new JsonSlurper().parseText(messageExchange.responseContent)   
+
+assert response.payload[0].apikey == "angelApiKey"
+</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties><con:property><con:name>host</con:name><con:value>qaagent.com/ide/api/</con:value></con:property></con:properties><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

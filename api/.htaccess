@@ -1,0 +1,6 @@
+# Turn on rewriting engine
+RewriteEngine On
+
+RewriteRule ^([a-zA-Z_-]*)$		ide/api/index.php?function=$1 [nc,qsa]
+
+

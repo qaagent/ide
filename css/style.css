@@ -1,0 +1,210 @@
+﻿@font-face { font-family: Ubuntu; src: url('ubuntu-font-family/Ubuntu-R.ttf'); }
+
+body
+{
+    overflow-x: hidden;
+    height: 100%;
+}
+
+* {
+    border-radius: 0 !important;
+    font-family: Ubuntu, sans-serif;
+}
+
+.main-container
+{
+    padding-left: 19px;
+    padding-right: 19px;
+    padding-bottom: 20px;
+    bottom: 10px; /* Footer Height */
+}
+
+.top-menu
+{
+    margin: 0;
+    font: 12px Verdana;
+    list-style-type: none;
+    background-color: #222;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: normal;
+    text-align: right;
+    padding-right: 12px;
+    padding-top: 9px;
+    padding-bottom: 5px;
+    min-width: 590px;
+    height:40px;
+    vertical-align: middle !important;
+}
+
+    .top-menu .logo
+    {
+        display: inline; 
+        left: 37px; 
+        position: absolute;
+    }
+
+    .top-menu .logo li a
+    {
+        color: #428bca;
+    }
+
+    .top-menu .logo li a:hover
+    {
+        color: #428bca;
+    }
+
+    .top-menu li
+    {
+        display: inline;
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .top-menu li.current-menu-item a
+    {
+        padding: 5px 10px;
+        background-color: #000000;
+        color: #428bca;
+        text-decoration: none;
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .top-menu li.current-menu-item a:hover
+    {
+        padding: 5px 10px;
+        background-color: #000000;
+        color: #428bca;
+        text-decoration: none;
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+        .top-menu li a
+        {
+            padding: 5px 10px;
+            background-color: #1e1f22;
+            color: #FFF;
+            text-decoration: none;
+            padding-left: 12px;
+            padding-right: 12px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .top-menu li a:hover
+        {
+            padding: 5px 10px;
+            background-color: #000000;
+            color: #FFF;
+            text-decoration: none;
+            padding-left: 12px;
+            padding-right: 12px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+.action-area
+{
+    padding-left: 38px;
+    padding-right: 10px;
+    padding-top: 15px;
+    border-color: #DCDCDC;
+    min-width: 600px;
+    background-color: #EBEEF1;
+    margin-top: 40px;
+    height: 48px;
+}
+
+    .action-area a
+    {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+.footer
+{
+    text-align: center;
+    color: #428BCA;
+}
+
+.modal-backdrop 
+{
+    background-color: #C0C0C0;
+}
+
+.modal-sm 
+{
+    padding-top:0px;
+    width: 30px;
+    text-align: center;
+}
+
+.editable-error
+{
+    font-size: 11px;
+    padding-bottom: 5px;
+}
+
+.pass-input
+{
+    margin-top: 10px;
+}
+
+.loading
+{
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    margin-left: 20%;
+}
+
+.sp-label
+{
+    font-size: 15px;
+}
+
+.h-splitter
+{
+    border-top: 5px solid #EBEEF1;
+}
+
+.v-splitter
+{
+    border-left: 5px solid #EBEEF1;
+}
+
+.action-button
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: black;
+}
+
+.action-button i
+{
+    padding-right: 5px;
+}
+
+.action-button:hover
+{
+    background-color: #DDDDDD;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+
+
+
